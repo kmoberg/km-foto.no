@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>KM Foto – Karl Mathias Moberg</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      :root {
+        /* ✨ Adjust how long each hero stays visible */
+        --slide-duration: 4s;
+        /* 3×3 grid helpers */
+        --third: 33.333vh; /* one-third of viewport height */
+      }
+
+      /* ---- Reset & Layout ---- */
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      body {
+        /* No need for flex since the heading is now positioned */
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+        color: #fff;
+        text-align: center;
+        overflow: hidden;
+        background: #000; /* Fallback colour */
+      }
+
+      /* ---- Slideshow ---- */
+      .slideshow,
+      .slide {
+        position: fixed;
+        inset: 0;
+        pointer-events: none; /* Background only */
+      }
+      .slide {
+        background-size: cover;
+        background-position: center;
+        animation: fade calc(var(--slide-duration) * 4) linear infinite;
+        opacity: 0;
+      }
+      .slide:nth-child(1) {
+        animation-delay: calc(var(--slide-duration) * 0);
+      }
+      .slide:nth-child(2) {
+        animation-delay: calc(var(--slide-duration) * 1);
+      }
+      .slide:nth-child(3) {
+        animation-delay: calc(var(--slide-duration) * 2);
+      }
+      .slide:nth-child(4) {
+        animation-delay: calc(var(--slide-duration) * 3);
+      }
+
+      /* Fade keyframes: 0-5% fade in | 5-25% show | 25-30% fade out */
+      @keyframes fade {
+        0%,
+        5% {
+          opacity: 0;
+        }
+        5%,
+        25% {
+          opacity: 1;
+        }
+        30%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      /* ---- Contrast layer ---- */
+      .slideshow::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+      }
+
+      /* ---- Splash Text ---- */
+      h1 {
+        position: fixed;
+        /* Place at the centre of the bottom row (row 3, col 2) */
+        left: 50%;
+        top: calc(var(--third) * 2 + var(--third) / 2);
+        transform: translate(-50%, -50%);
+
+        margin: 0;
+        padding: 2rem;
+        font-weight: 400;
+        line-height: 1.35;
+        opacity: 0;
+        animation: fadeInUp 1.6s ease forwards 0.3s;
+      }
+      .lead {
+        display: block;
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        font-weight: 700;
+      }
+      .sub {
+        display: block;
+        font-size: clamp(1rem, 2.5vw, 1.35rem);
+        margin-top: 0.4rem;
+      }
+      a {
+        color: #ffd700;
+        text-decoration: none;
+        border-bottom: 2px solid currentColor;
+        padding-bottom: 2px;
+        transition: opacity 0.2s ease;
+      }
+      a:hover {
+        opacity: 0.8;
+      }
+
+      @keyframes fadeInUp {
+        0% {
+          opacity: 0;
+          transform: translate(-50%, calc(-50% + 16px));
+        }
+        100% {
+          opacity: 1;
+          transform: translate(-50%, -50%);
+        }
+      }
+
+      /* ---- Optional: Respect reduced motion ---- */
+      @media (prefers-reduced-motion: reduce) {
+        h1 {
+          animation: none;
+          opacity: 1;
+        }
+        .slide {
+          animation: none;
+          opacity: 1; /* show first frame */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Background slideshow: swap any number of hero images -->
+    <div class="slideshow">
+      <div
+        class="slide"
+        style="background-image: url('/assets/hero1.jpg')"
+      ></div>
+      <div
+        class="slide"
+        style="background-image: url('/assets/hero2.jpg')"
+      ></div>
+      <div
+        class="slide"
+        style="background-image: url('/assets/hero3.jpg')"
+      ></div>
+      <div
+        class="slide"
+        style="background-image: url('/assets/hero4.jpg')"
+      ></div>
+    </div>
+
+    <!-- Splash message -->
+    <h1>
+      <span class="lead">I'm Karl Mathias Moberg</span>
+      <span class="sub">a photographer in Stavanger, Norway.</span>
+      <span class="sub"
+        >I run the photo studio
+        <a
+          href="https://studiomoberg.no"
+          target="_blank"
+          rel="noopener"
+          >studiomoberg.no</a
+        >.</span
+      >
+      <span class="sub">If you're interested in my work, head there.</span>
+    </h1>
+  </body>
+</html>
